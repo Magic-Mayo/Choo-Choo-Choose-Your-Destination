@@ -29,11 +29,25 @@ database.ref().on('child_added', function(childSnapshot){
     const dest = childSnapshot.val().dest;
     const time = childSnapshot.val().time;
     const hZ = childSnapshot.val().hZ;
+    let firstTrain = moment(time, 'HH:mm').subtract(1, 'years');
+    let timeDif = moment().diff(moment(firstTrain), 'minutes');
+    let remain = timeDif % hZ;
+    let trainArv = hZ - remain;
+    let nextTrain = moment().add(trainArv, 'minutes')
 
-    console.log(route)
-    console.log(depart)
-    console.log(dest)
-    console.log(time)
-    console.log(hZ)
+    console.log(firstTrain)
+    console.log(timeDif)
+    console.log(trainArv)
+    const row = $('<tr>').append(
+        $('<td>').text(route),
+        $('<td>').text(depart),
+        $('<td>').text(dest),
+        $('<td>').text(hZ),
+        $('<td>').text(moment(nextTrain).format('ddd' + ' HH:mm')),
+        $('<td>').text(trainArv)
+    );
 
+    $('table > tbody').append(row)
+}, function(errorObject){
+    console.log('Error: ' + errorObject)
 })
