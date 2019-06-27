@@ -9,7 +9,7 @@ const firebaseConfig = {
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
+  const ref = firebase.database().ref();
 
 $('#choo-choo').on('click', function(){
     const trains = {
@@ -20,10 +20,12 @@ $('#choo-choo').on('click', function(){
         hZ: $('#frequency').val().trim()
     }
 
-    database.ref().push(trains);
+    alert('Route added!')
+
+    ref.push(trains);
 })
 
-database.ref().on('child_added', function(childSnapshot){
+ref.on('child_added', function(childSnapshot){
     const route = childSnapshot.val().route;
     const depart = childSnapshot.val().depart;
     const dest = childSnapshot.val().dest;
@@ -44,10 +46,19 @@ database.ref().on('child_added', function(childSnapshot){
         $('<td>').text(dest),
         $('<td>').text(hZ),
         $('<td>').text(moment(nextTrain).format('ddd' + ' HH:mm')),
-        $('<td>').text(trainArv)
+        $('<td>').text(trainArv),
+        $('<i type="button">').addClass("fas fa-minus-circle").attr('data-child', childSnapshot.key)
     );
 
-    $('table > tbody').append(row)
+    $('tbody').append(row)
 }, function(errorObject){
     console.log('Error: ' + errorObject)
+})
+
+$(document).on('click', '.fa-minus-circle', function(){
+    $(this).parent('tr').empty();
+    let child = $(this).data('child');
+    // let key = ref(child).on('child_added', function(childSnapshot){});
+    // ref(child).off('value', key)
+    firebase.database().ref(child).set(null)
 })

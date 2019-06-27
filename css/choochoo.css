@@ -17,3 +17,9 @@
 .form-control {
     width: 88vw;
 }
+
+.fa-minus-circle {
+    position: relative;
+    top: 12.75px;
+    border-color: #ffffff;
+}
