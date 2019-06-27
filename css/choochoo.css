@@ -1,0 +1,14 @@
+.card {
+    width: 100%;
+}
+
+.container-fluid {
+    max-width: 90vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-55%)
+}
+
+.btn {
+    margin-left: -15px
+}
