@@ -23,3 +23,7 @@
     top: 12.75px;
     border-color: #ffffff;
 }
+
+.fa-minus-circle:hover {
+    cursor: pointer;
+}

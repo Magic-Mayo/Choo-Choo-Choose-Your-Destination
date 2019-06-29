@@ -47,7 +47,7 @@ ref.on('child_added', function(childSnapshot){
         $('<td>').text(hZ),
         $('<td>').text(moment(nextTrain).format('ddd' + ' HH:mm')),
         $('<td>').text(trainArv),
-        $('<i type="button">').addClass("fas fa-minus-circle").attr('data-child', childSnapshot.key)
+        $('<i>').addClass("fas fa-minus-circle").attr('data-child', childSnapshot.key)
     );
 
     $('tbody').append(row)
